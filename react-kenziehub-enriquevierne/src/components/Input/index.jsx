@@ -1,10 +1,13 @@
+import { StyledInput } from "../../styles/input"
+import { StyledDivInput, StyledLabel } from "./style"
+
 export const Input = ({label, id, type, register}) => {
 
     return (
-        <div>
-        {label ? <label>{label}</label> : null}
-        <input type={type} id={id} {...register} />
-        </div>
+        <StyledDivInput>
+        {label ? <StyledLabel>{label}</StyledLabel> : null}
+        <StyledInput type={type} id={id} {...register} />
+        </StyledDivInput>
 
     )
 } 

@@ -1,47 +1,61 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../../components/Input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formRegisterExampleSchema } from "../../components/FormExample/formRegisterExampleSchema";
+import { api } from "../../services/api";
+import { StyledForm } from "../login/style";
+import { StyledButton } from "../../styles/button";
+import { StyledSelect } from "../../styles/select";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterPage = () => {
-  const [output, setOutput] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(formRegisterExampleSchema),
+  });
 
-  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  const createUser = (data) => {
-    setOutput(JSON.stringify(data, null, 2));
+  const registerUser = async (data) => {
+    try {
+      const response = await api.post("/users", data);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(createUser)}>
+      <StyledForm onSubmit={handleSubmit(registerUser)}>
         <Input type="text" label="Nome" register={register("name")} />
+        {errors.name ? <p>{errors.name.message}</p> : null}
         <Input type="email" label="Email" register={register("email")} />
+        {errors.email ? <p>{errors.email.message}</p> : null}
         <Input type="password" label="Senha" register={register("password")} />
+        {errors.password ? <p>{errors.password.message}</p> : null}
         <Input
           type="password"
           label="Confirmar senha"
-          register={register("password")}
+          register={register("confirm")}
         />
+        {errors.confirm ? <p>{errors.confirm.message}</p> : null}
         <Input type="text" label="Bio" register={register("bio")} />
+        {errors.bio ? <p>{errors.bio.message}</p> : null}
         <Input type="text" label="Contato" register={register("contact")} />
+        {errors.contact ? <p>{errors.contact.message}</p> : null}
 
-        <select {...register("course_module")}>
-          <option value="Primeiro módulo (Introdução ao Frontend)">
-            Primeiro módulo
-          </option>
-          <option value="Segundo módulo (Frontend Avançado)">
-            Segundo módulo
-          </option>
-          <option value="Terceiro módulo (Introdução ao Backend)">
-            Terceiro módulo
-          </option>
-          <option value="Quarto módulo (Backend Avançado)">
-            Quarto módulo
-          </option>
-        </select>
-        <button type="submit">Salvar</button>
-      </form>
-      <pre>{output}</pre>
+        <StyledSelect {...register("course_module")}>
+          <option>"Primeiro módulo (Introdução ao Frontend)"</option>
+          <option>"Segundo módulo (Frontend Avançado)"</option>
+          <option>"Terceiro módulo (Introdução ao Backend)"</option>
+          <option>"Quarto módulo (Backend Avançado)"</option>
+        </StyledSelect>
+        <StyledButton type="submit">Cadastrar</StyledButton>
+      </StyledForm>
     </>
   );
 };
