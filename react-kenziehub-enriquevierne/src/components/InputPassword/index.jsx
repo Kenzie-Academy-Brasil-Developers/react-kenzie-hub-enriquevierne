@@ -3,7 +3,7 @@ import { StyledDivInput, StyledLabel } from "../Input/style";
 import { StyledDivPassword, StyledInputPassword } from "./style";
 import Show from "../../assets/eye.png";
 
-export const InputPassword = ({ label, id, type, register }) => {
+export const InputPassword = ({ label, id, type, register, placeholder }) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -12,12 +12,12 @@ export const InputPassword = ({ label, id, type, register }) => {
       <StyledDivPassword>
         {!show ? (
           <>
-            <StyledInputPassword type={type} id={id} {...register} />
+            <StyledInputPassword type={type} id={id} {...register} placeholder={placeholder}/>
             <img src={Show} onClick={() => setShow(true)}/>
           </>
         ) : (
             <>
-            <StyledInputPassword type="text" id={id} {...register} />
+            <StyledInputPassword type="text" id={id} {...register} placeholder={placeholder}/>
             <img src={Show} onClick={() => setShow(false)}/>
           </>
         )}
