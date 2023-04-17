@@ -1,6 +1,7 @@
 import { StyledInput } from "../../styles/input"
 import { StyledDivInput, StyledLabel } from "./style"
 
+
 export const Input = ({label, id, type, register, placeholder}) => {
 
     return (

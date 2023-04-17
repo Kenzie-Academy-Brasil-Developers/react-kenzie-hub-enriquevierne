@@ -8,6 +8,8 @@ import { StyledButton } from "../../styles/button";
 import { StyledSelect } from "../../styles/select";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 export const RegisterPage = () => {
   const {
@@ -23,39 +25,91 @@ export const RegisterPage = () => {
   const registerUser = async (data) => {
     try {
       const response = await api.post("/users", data);
-      navigate("/");
+      notifySuccess();
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
     } catch (error) {
-      console.error(error);
+      notifyFailed(error.response.data.message);
     }
   };
 
   const backToLogin = () => {
-    
     navigate("/");
+  };
 
-  }
+  const notifySuccess = () => {
+    toast.success("Cadastrado com sucesso!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+  const notifyFailed = (data) => {
+    toast.error(data, {
+      position: "top-right",
+      autoClose: 2300,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
   return (
     <>
-      <Header backToLogin={backToLogin}/>
+      <Header backToLogin={backToLogin} />
       <StyledForm onSubmit={handleSubmit(registerUser)}>
         <h2>Crie sua conta</h2>
         <p>Rapido e grátis, vamos nessa</p>
-        <Input type="text" label="Nome" register={register("name")} placeholder="Digite aqui seu nome"/>
+        <Input
+          type="text"
+          label="Nome"
+          register={register("name")}
+          placeholder="Digite aqui seu nome"
+        />
         {errors.name ? <p>{errors.name.message}</p> : null}
-        <Input type="email" label="Email" register={register("email")} placeholder="Digite aqui seu email"/>
+        <Input
+          type="email"
+          label="Email"
+          register={register("email")}
+          placeholder="Digite aqui seu email"
+        />
         {errors.email ? <p>{errors.email.message}</p> : null}
-        <Input type="password" label="Senha" register={register("password")} placeholder="Digite aqui sua senha"/>
+        <Input
+          type="password"
+          label="Senha"
+          register={register("password")}
+          placeholder="Digite aqui sua senha"
+        />
         {errors.password ? <p>{errors.password.message}</p> : null}
         <Input
           type="password"
           label="Confirmar senha"
           register={register("confirm")}
-          placeholder="Digite novamente sua senha" />
+          placeholder="Digite novamente sua senha"
+        />
         {errors.confirm ? <p>{errors.confirm.message}</p> : null}
-        <Input type="text" label="Bio" register={register("bio")} placeholder="Digite aqui uma descrição"/>
+        <Input
+          type="text"
+          label="Bio"
+          register={register("bio")}
+          placeholder="Digite aqui uma descrição"
+        />
         {errors.bio ? <p>{errors.bio.message}</p> : null}
-        <Input type="text" label="Contato" register={register("contact")} placeholder="Digite aqui seu contato"/>
+        <Input
+          type="text"
+          label="Contato"
+          register={register("contact")}
+          placeholder="Digite aqui seu contato"
+        />
         {errors.contact ? <p>{errors.contact.message}</p> : null}
 
         <StyledSelect {...register("course_module")}>
@@ -66,6 +120,7 @@ export const RegisterPage = () => {
         </StyledSelect>
         <StyledButton type="submit">Cadastrar</StyledButton>
       </StyledForm>
+      <ToastContainer />
     </>
   );
 };
