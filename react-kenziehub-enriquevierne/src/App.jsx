@@ -10,19 +10,15 @@ import { Header } from "./components/Header";
 
 function App() {
   return (
-    
-      <>
-        <GlobalStyles />
-        <Header />
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="*" element={<NorFoundPage />} />
-        </Routes>
-      </>
-      
-    
+    <>
+      <GlobalStyles />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="*" element={<NorFoundPage />} />
+      </Routes>
+    </>
   );
 }
 

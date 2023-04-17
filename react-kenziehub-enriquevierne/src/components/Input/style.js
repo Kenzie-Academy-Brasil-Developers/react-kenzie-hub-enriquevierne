@@ -17,4 +17,5 @@ export const StyledLabel = styled.label`
   font-size: 9.772px;
   line-height: 0px;
   color: var(--color-gray);
+  
 `;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import Logo from "../../assets/eye.png";
 
-export const StyledInput = styled.input`
+export const StyledInputPassword = styled.input`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,3 +24,17 @@ export const StyledInput = styled.input`
   }
 `;
 
+export const StyledDivPassword = styled.div`
+  position: relative;
+
+  img {
+    position: absolute;
+    width: 13.36px;
+    height: 21px;
+    right: 10px;
+    top: 8px;
+    color: #868e96;
+    cursor: pointer;
+    
+  }
+`;

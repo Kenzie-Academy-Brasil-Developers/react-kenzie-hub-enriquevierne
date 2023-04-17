@@ -7,6 +7,8 @@ import { formLoginExampleSchema } from "../../components/FormExample/formLoginEx
 import { useState } from "react";
 import { StyledA, StyledForm } from "./style";
 import { StyledButton } from "../../styles/button";
+import { Header } from "../../components/Header";
+import { InputPassword } from "../../components/InputPassword";
 
 export const LoginPage = () => {
   const [token, setToken] = useState(localStorage.getItem("@TOKEN") || "");
@@ -35,11 +37,12 @@ export const LoginPage = () => {
 
   return (
     <>
+    <Header />
       <StyledForm onSubmit={handleSubmit(loginUser)}>
         <h2>Login</h2>
         <Input type="email" label="Email" register={register("email")} />
         {errors.email ? <p>{errors.email.message}</p> : null}
-        <Input type="password" label="Senha" register={register("password")} />
+        <InputPassword type="password" label="Senha" register={register("password")} />
         {errors.password ? <p>{errors.password.message}</p> : null}
         <div>
           <StyledButton type="submit">Entrar</StyledButton>

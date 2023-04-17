@@ -49,6 +49,7 @@ export const StyledForm = styled.form`
     font-size: 9.62602px;
     line-height: 14px;
     color: var(--color-gray-30);
+    
   }
 `;
 
