@@ -25,7 +25,6 @@ export const LoginPage = () => {
   const loginUser = async (data) => {
     try {
       const response = await api.post("/sessions", data);
-      console.log(response);
       localStorage.setItem("@TOKEN", response.data.token);
       localStorage.setItem("@USERID", response.data.user.id);
       localStorage.setItem("@USER", JSON.stringify(response.data.user));
@@ -36,23 +35,34 @@ export const LoginPage = () => {
   };
 
   const toRegister = () => {
-
-    navigate("/register")
-  } 
+    navigate("/register");
+  };
 
   return (
     <>
-    <Header />
+      <Header />
       <StyledForm onSubmit={handleSubmit(loginUser)}>
         <h2>Login</h2>
-        <Input type="email" label="Email" register={register("email")} placeholder={"Digite aqui seu email"}/>
+        <Input
+          type="email"
+          label="Email"
+          register={register("email")}
+          placeholder={"Digite aqui seu email"}
+        />
         {errors.email ? <p>{errors.email.message}</p> : null}
-        <InputPassword type="password" label="Senha" register={register("password")} placeholder={"Digite aqui sua senha"}/>
+        <InputPassword
+          type="password"
+          label="Senha"
+          register={register("password")}
+          placeholder={"Digite aqui sua senha"}
+        />
         {errors.password ? <p>{errors.password.message}</p> : null}
         <div>
           <StyledButton type="submit">Entrar</StyledButton>
           <span>Ainda não possui uma conta?</span>
-          <StyledButtonRegister onClick={toRegister}>Cadastrar</StyledButtonRegister>
+          <StyledButtonRegister onClick={toRegister}>
+            Cadastrar
+          </StyledButtonRegister>
         </div>
       </StyledForm>
     </>

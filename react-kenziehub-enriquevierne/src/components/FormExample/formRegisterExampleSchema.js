@@ -17,7 +17,7 @@ export const formRegisterExampleSchema = z
         "É necessário pelo menos um símbolo especial, ex: @#$%^"
       ),
     confirm: z.string().min(8, "Campo obrigatório"),
-    bio: z.string().min(10, "Campo obrigatório"),
+    bio: z.string().min(10, "Campo obrigatório, mínimo 10 caracteres."),
     contact: z.string().min(8, "Campo obrigatório"),
     course_module: z.string().nonempty("Campo obrigatório")
   })
