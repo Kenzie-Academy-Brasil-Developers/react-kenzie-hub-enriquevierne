@@ -9,6 +9,8 @@ import { StyledButtonRegister, StyledForm } from "./style";
 import { StyledButton } from "../../styles/button";
 import { Header } from "../../components/Header";
 import { InputPassword } from "../../components/InputPassword";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 export const LoginPage = () => {
   const [token, setToken] = useState(localStorage.getItem("@TOKEN") || "");
@@ -30,12 +32,25 @@ export const LoginPage = () => {
       localStorage.setItem("@USER", JSON.stringify(response.data.user));
       navigate("/dashboard");
     } catch (error) {
-      console.log(error.response.data.message);
+      notifyFailed(error.response.data.message);
     }
   };
 
   const toRegister = () => {
     navigate("/register");
+  };
+
+  const notifyFailed = (data) => {
+    toast.error(data, {
+      position: "top-right",
+      autoClose: 2300,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   return (
@@ -65,6 +80,7 @@ export const LoginPage = () => {
           </StyledButtonRegister>
         </div>
       </StyledForm>
+      <ToastContainer />
     </>
   );
 };
