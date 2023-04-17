@@ -5,7 +5,7 @@ import { api } from "../../services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formLoginExampleSchema } from "../../components/FormExample/formLoginExampleSchema";
 import { useState } from "react";
-import { StyledA, StyledForm } from "./style";
+import { StyledButtonRegister, StyledForm } from "./style";
 import { StyledButton } from "../../styles/button";
 import { Header } from "../../components/Header";
 import { InputPassword } from "../../components/InputPassword";
@@ -35,6 +35,11 @@ export const LoginPage = () => {
     }
   };
 
+  const toRegister = () => {
+
+    navigate("/register")
+  } 
+
   return (
     <>
     <Header />
@@ -47,7 +52,7 @@ export const LoginPage = () => {
         <div>
           <StyledButton type="submit">Entrar</StyledButton>
           <span>Ainda não possui uma conta?</span>
-          <StyledA href="/register">Cadastrar</StyledA>
+          <StyledButtonRegister onClick={toRegister}>Cadastrar</StyledButtonRegister>
         </div>
       </StyledForm>
     </>

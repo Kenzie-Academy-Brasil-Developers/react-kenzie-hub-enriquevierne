@@ -53,7 +53,7 @@ export const StyledForm = styled.form`
   }
 `;
 
-export const StyledA = styled.a`
+export const StyledButtonRegister = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
