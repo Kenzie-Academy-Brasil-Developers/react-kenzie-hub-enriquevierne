@@ -49,7 +49,7 @@ export const LoginPage = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored",
+      theme: "dark",
     });
   };
 
