@@ -1,23 +1,35 @@
 import { useContext, useEffect } from "react";
 import { TechCard } from "./TechCard";
-import { TechContext } from "../../providers/techContext";
 import { StyledTechList, StyledTitleTechList } from "./style";
+import { TechContext } from "../../providers/techContext";
+import { toast } from "react-toastify";
+import { api } from "../../services/api";
 
-export const TechList = ({ loadTechs }) => {
-    const newList = loadTechs
-    console.log(newList)
-    return (
+export const TechList = ({ setIsOpenCreate  }) => {
+  const { listTech, setListTech } = useContext(TechContext);
+  const loadTechs = async () => {
+    const id = localStorage.getItem("@USERID");
+    try {
+      const { data } = await api.get(`/users/${id}`);
+      setListTech(data.techs);
+      console.log(listTech);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    loadTechs();
+  }, []);
+
+  return (
     <div>
       <StyledTitleTechList>
         <h2>Tecnologias</h2>
-        <button>+</button>
+        <button onClick={() => setIsOpenCreate(true)}>+</button>
       </StyledTitleTechList>
       <StyledTechList>
-        {newList ? newList.map(tech => {
-
-            return <TechCard key={tech.id} tech={tech} />
-
-        }) : null}
+        {listTech.map((tech) => (
+          <TechCard key={tech.id} tech={tech} />
+        ))}
       </StyledTechList>
     </div>
   );

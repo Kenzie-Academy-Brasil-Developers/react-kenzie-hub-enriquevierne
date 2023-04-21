@@ -37,4 +37,14 @@ export const StyledTechList = styled.ul`
   background-color: var(--color-gray-90);
   padding: 22px 0px;
   border-radius: 4px;
+
+  p {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 23px;
+    color: var(--color-gray);
+    text-align: center;
+  }
 `;
