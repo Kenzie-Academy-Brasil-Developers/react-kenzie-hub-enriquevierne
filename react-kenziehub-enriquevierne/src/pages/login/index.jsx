@@ -1,18 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
-import { api } from "../../services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formLoginExampleSchema } from "../../components/FormExample/formLoginExampleSchema";
-import { useState } from "react";
 import { StyledButtonRegister, StyledForm } from "./style";
 import { StyledButton } from "../../styles/button";
 import { Header } from "../../components/Header";
 import { InputPassword } from "../../components/InputPassword";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+import { useContext } from "react";
+import { UserContext } from "../../providers/userContext";
+import { useState } from "react";
 
 export const LoginPage = () => {
+  const { loginUser, user } = useContext(UserContext);
   const [token, setToken] = useState(localStorage.getItem("@TOKEN") || "");
   const {
     register,
@@ -24,39 +24,18 @@ export const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  const loginUser = async (data) => {
-    try {
-      const response = await api.post("/sessions", data);
-      localStorage.setItem("@TOKEN", response.data.token);
-      localStorage.setItem("@USERID", response.data.user.id);
-      localStorage.setItem("@USER", JSON.stringify(response.data.user));
-      navigate("/dashboard");
-    } catch (error) {
-      notifyFailed(error.response.data.message);
-    }
-  };
-
   const toRegister = () => {
     navigate("/register");
   };
 
-  const notifyFailed = (data) => {
-    toast.error(data, {
-      position: "top-right",
-      autoClose: 2300,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+  const submit = (data) => {
+    loginUser(data);
   };
 
   return (
     <>
       <Header />
-      <StyledForm onSubmit={handleSubmit(loginUser)}>
+      <StyledForm onSubmit={handleSubmit(submit)}>
         <h2>Login</h2>
         <Input
           type="email"
@@ -80,7 +59,6 @@ export const LoginPage = () => {
           </StyledButtonRegister>
         </div>
       </StyledForm>
-      <ToastContainer />
     </>
   );
 };

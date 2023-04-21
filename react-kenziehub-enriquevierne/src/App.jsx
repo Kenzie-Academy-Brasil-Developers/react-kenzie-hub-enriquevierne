@@ -1,12 +1,9 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { DashboardPage } from "./pages/dashboard";
 import { LoginPage } from "./pages/login";
 import { NorFoundPage } from "./pages/notFound";
 import { RegisterPage } from "./pages/register";
 import { GlobalStyles } from "./styles/globalStyles";
-import { Header } from "./components/Header";
 
 function App() {
   return (

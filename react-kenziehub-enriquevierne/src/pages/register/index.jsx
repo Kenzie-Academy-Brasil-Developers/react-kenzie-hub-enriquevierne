@@ -2,16 +2,18 @@ import { useForm } from "react-hook-form";
 import { Input } from "../../components/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formRegisterExampleSchema } from "../../components/FormExample/formRegisterExampleSchema";
-import { api } from "../../services/api";
+
 import { StyledForm } from "../login/style";
 import { StyledButton } from "../../styles/button";
 import { StyledSelect } from "../../styles/select";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+
+import { useContext } from "react";
+import { UserContext } from "../../providers/userContext";
 
 export const RegisterPage = () => {
+  const { registerUser } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -22,53 +24,20 @@ export const RegisterPage = () => {
 
   const navigate = useNavigate();
 
-  const registerUser = async (data) => {
-    try {
-      const response = await api.post("/users", data);
-      notifySuccess();
-      setTimeout(() => {
-        navigate("/");
-      }, 2500);
-    } catch (error) {
-      notifyFailed(error.response.data.message);
-    }
-  };
-
   const backToLogin = () => {
     navigate("/");
   };
 
-  const notifySuccess = () => {
-    toast.success("Cadastrado com sucesso!", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
-  const notifyFailed = (data) => {
-    toast.error(data, {
-      position: "top-right",
-      autoClose: 2300,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+  const submit = (data) => {
+    registerUser(data);
   };
 
   return (
     <>
       <Header backToLogin={backToLogin} />
-      <StyledForm onSubmit={handleSubmit(registerUser)}>
+      <StyledForm onSubmit={handleSubmit(submit)}>
         <h2>Crie sua conta</h2>
-        <p>Rapido e grátis, vamos nessa</p>
+        <p>Rápido e grátis, vamos nessa</p>
         <Input
           type="text"
           label="Nome"
@@ -120,7 +89,6 @@ export const RegisterPage = () => {
         </StyledSelect>
         <StyledButton type="submit">Cadastrar</StyledButton>
       </StyledForm>
-      <ToastContainer />
     </>
   );
 };

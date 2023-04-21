@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledHeader = styled.header`
-  width: 90%;
+  width: 100%;
   max-width: 800px;
   height: 114px;
   display: flex;
