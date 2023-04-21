@@ -7,8 +7,12 @@ import {
   StyledHeader,
 } from "./style";
 import { StyledButton } from "../../pages/register/style";
+import { useContext } from "react";
+import { UserContext } from "../../providers/userContext";
 
-export const Header = ({ backToLogin, logoutUser }) => {
+export const Header = ({ backToLogin }) => {
+  const { userLogout } = useContext(UserContext);
+
   return (
     <>
       {backToLogin ? (
@@ -18,11 +22,11 @@ export const Header = ({ backToLogin, logoutUser }) => {
             <StyledButton onClick={backToLogin}>Voltar</StyledButton>
           </StyledDivRegisterPage>
         </StyledHeader>
-      ) : null || logoutUser ? (
+      ) : null || userLogout ? (
         <StyledHeader>
           <StyledDivDashboardPage>
             <img src={Logo} alt="" />
-            <StyledButton onClick={logoutUser}>Sair</StyledButton>
+            <StyledButton onClick={userLogout}>Sair</StyledButton>
           </StyledDivDashboardPage>
         </StyledHeader>
       ) : (

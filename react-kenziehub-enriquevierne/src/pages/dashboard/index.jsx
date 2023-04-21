@@ -12,16 +12,10 @@ export const DashboardPage = () => {
 
   const user = JSON.parse(localStorage.getItem("@USER"));
   const navigate = useNavigate();
-  const logoutUser = () => {
-    const user = localStorage.removeItem("@USER");
-    const userId = localStorage.removeItem("@USERID");
-    const userToken = localStorage.removeItem("@TOKEN");
-    navigate("/");
-  };
-
+  
   return (
     <>
-      <Header logoutUser={logoutUser} />
+      <Header/>
       <StyledDivDashboard>
         <h2>Olá, {user.name}</h2>
         <p>{user.course_module}</p>

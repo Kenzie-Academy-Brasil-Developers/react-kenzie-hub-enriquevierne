@@ -56,9 +56,16 @@ export const UserProvider = ({ children }) => {
       toast.error(error.message);
     }
   };
+  const userLogout = () => {
+    localStorage.removeItem("@TOKEN");
+    localStorage.removeItem("@USERID");
+    localStorage.removeItem("@USER");
+    setUser(null);
+    navigate("/");
+ };
 
   return (
-    <UserContext.Provider value={{ loginUser, registerUser, user }}>
+    <UserContext.Provider value={{ loginUser, registerUser, user, userLogout }}>
       {children}
     </UserContext.Provider>
   );
