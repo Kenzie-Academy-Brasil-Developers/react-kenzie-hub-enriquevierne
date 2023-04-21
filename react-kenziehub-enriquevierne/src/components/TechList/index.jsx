@@ -20,6 +20,7 @@ export const TechList = ({ setIsOpenCreate }) => {
     loadTechs();
   }, []);
 
+  console.log(listTech.length)
   return (
     <div>
       <StyledTitleTechList>
@@ -27,9 +28,9 @@ export const TechList = ({ setIsOpenCreate }) => {
         <button onClick={() => setIsOpenCreate(true)}>+</button>
       </StyledTitleTechList>
       <StyledTechList>
-        {listTech.map((tech) => (
+        {listTech.length > 0 ? listTech.map((tech) => (
           <TechCard key={tech.id} tech={tech} />
-        ))}
+        )): <p>Você não possui tecnologias adicionadas.</p>}
       </StyledTechList>
     </div>
   );

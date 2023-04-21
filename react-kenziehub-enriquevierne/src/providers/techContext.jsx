@@ -56,8 +56,9 @@ export const TechProvider = ({ children }) => {
         (currentTech) => currentTech.id !== techId
       );
       setListTech(newListTech);
+      toast.success("Tecnologia removida")
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
 

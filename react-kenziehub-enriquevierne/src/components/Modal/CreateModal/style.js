@@ -41,4 +41,15 @@ export const StyledModal = styled.div`
     width: 100%;
     margin: 12px 0px;
   }
+
+  p {
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 9.62602px;
+    line-height: 14px;
+    color: var(--color-gray-30);
+    
+  }
 `;

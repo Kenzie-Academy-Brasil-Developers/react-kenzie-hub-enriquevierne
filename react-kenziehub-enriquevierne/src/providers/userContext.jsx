@@ -14,25 +14,25 @@ export const UserProvider = ({ children }) => {
     const userId = localStorage.getItem("@USERID");
 
     const userAutoLogin = async () => {
-       try {
-          const {data} = await api.get(`/profile/`, {
-             headers: {
-                Authorization: `Bearer ${token}`
-             }
-          })
-          setUser(data);
-          navigate('dashboard')
-       } catch (error) {
-          console.log(error);
-          localStorage.removeItem("@TOKEN");
-          localStorage.removeItem("@USERID");
-       }
-    }
+      try {
+        const { data } = await api.get(`/profile/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUser(data);
+        navigate("dashboard");
+      } catch (error) {
+        toast.error(error.message);
+        localStorage.removeItem("@TOKEN");
+        localStorage.removeItem("@USERID");
+      }
+    };
 
-    if(token && userId){
-       userAutoLogin();
+    if (token && userId) {
+      userAutoLogin();
     }
- }, [])
+  }, []);
   const loginUser = async (data) => {
     try {
       const response = await api.post("/sessions", data);
@@ -62,7 +62,7 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem("@USER");
     setUser(null);
     navigate("/");
- };
+  };
 
   return (
     <UserContext.Provider value={{ loginUser, registerUser, user, userLogout }}>
