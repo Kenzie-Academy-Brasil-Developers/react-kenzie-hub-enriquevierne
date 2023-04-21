@@ -13,7 +13,6 @@ import { StyledLabel } from "../../Input/style";
 export const EditModal = ({ tech, setIsOpenEdit }) => {
   const { editTechs, removeTech } = useContext(TechContext);
 
-  console.log(tech)
   const {
     register,
     handleSubmit,
@@ -23,17 +22,15 @@ export const EditModal = ({ tech, setIsOpenEdit }) => {
   });
 
   const submit = (data) => {
-    const id = tech.id
-    editTechs(data, id)
-    
+    const id = tech.id;
+    editTechs(data, id);
   };
 
   const remove = (e) => {
-    e.preventDefault()
-    const id = tech.id
-    removeTech(id)
-
-  } 
+    e.preventDefault();
+    const id = tech.id;
+    removeTech(id);
+  };
 
   return (
     <StyledModal role="dialog">
@@ -42,7 +39,12 @@ export const EditModal = ({ tech, setIsOpenEdit }) => {
         <span onClick={() => setIsOpenEdit(false)}>X</span>
       </div>
       <form onSubmit={handleSubmit(submit)}>
-        <Input type="text" label="Nome" placeholder={tech.title} value={tech.title}/>
+        <Input
+          type="text"
+          label="Nome"
+          placeholder={tech.title}
+          value={tech.title}
+        />
         {errors.title ? <p>{errors.title.message}</p> : null}
         <div>
           <StyledLabel htmlFor="">Selecionar Status</StyledLabel>
@@ -54,7 +56,7 @@ export const EditModal = ({ tech, setIsOpenEdit }) => {
         </div>
         <StyledDivButtons>
           <StyledButton type="submit">Salvar</StyledButton>
-          <StyledButton onClick={ (e) => remove(e)}>Excluir</StyledButton>
+          <StyledButton onClick={(e) => remove(e)}>Excluir</StyledButton>
         </StyledDivButtons>
       </form>
     </StyledModal>

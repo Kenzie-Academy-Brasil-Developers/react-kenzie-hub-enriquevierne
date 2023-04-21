@@ -16,6 +16,7 @@ export const TechProvider = ({ children }) => {
         },
       });
       setListTech([...listTech, data]);
+      toast.success("Tecnologia cadastrada!");
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -23,44 +24,48 @@ export const TechProvider = ({ children }) => {
 
   const editTechs = async (status, id) => {
     const token = localStorage.getItem("@TOKEN");
+
     try {
       const { data } = await api.put(`/users/techs/${id}`, status, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setListTech([...listTech, data]);
-      toast.success("Tecnologia atualizada")
+
+      const newListTech = listTech.filter((currentTech) =>
+      currentTech.status !== status
+      ? setListTech([...listTech, data])
+      : null
+      );
+      toast.success("Tecnologia atualizada");
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
 
-
-
   const removeTech = async (techId) => {
     const token = localStorage.getItem("@TOKEN");
     try {
-   
       await api.delete(`/users/techs/${techId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      
+
       const newListTech = listTech.filter(
         (currentTech) => currentTech.id !== techId
       );
-      setNewsList(newListTech);
+      setListTech(newListTech);
     } catch (error) {
       console.log(error);
     }
   };
 
-
-return (
-  <TechContext.Provider value={{ addTechs, removeTech, listTech, setListTech, editTechs }}>
-    {children}
-  </TechContext.Provider>
-)
-}
+  return (
+    <TechContext.Provider
+      value={{ addTechs, removeTech, listTech, setListTech, editTechs }}
+    >
+      {children}
+    </TechContext.Provider>
+  );
+};

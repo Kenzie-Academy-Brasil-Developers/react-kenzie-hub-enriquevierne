@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,6 +8,31 @@ export const UserContext = createContext({});
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  useEffect(() => {
+    //Ter uma rota de api adequada para isso!
+    const token = localStorage.getItem("@TOKEN");
+    const userId = localStorage.getItem("@USERID");
+
+    const userAutoLogin = async () => {
+       try {
+          const {data} = await api.get(`/profile/`, {
+             headers: {
+                Authorization: `Bearer ${token}`
+             }
+          })
+          setUser(data);
+          navigate('dashboard')
+       } catch (error) {
+          console.log(error);
+          localStorage.removeItem("@TOKEN");
+          localStorage.removeItem("@USERID");
+       }
+    }
+
+    if(token && userId){
+       userAutoLogin();
+    }
+ }, [])
   const loginUser = async (data) => {
     try {
       const response = await api.post("/sessions", data);

@@ -5,14 +5,14 @@ import { TechContext } from "../../providers/techContext";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 
-export const TechList = ({ setIsOpenCreate  }) => {
+export const TechList = ({ setIsOpenCreate }) => {
   const { listTech, setListTech } = useContext(TechContext);
+
   const loadTechs = async () => {
     const id = localStorage.getItem("@USERID");
     try {
       const { data } = await api.get(`/users/${id}`);
       setListTech(data.techs);
-      console.log(listTech);
     } catch (error) {}
   };
 
