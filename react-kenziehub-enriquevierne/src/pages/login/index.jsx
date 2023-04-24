@@ -9,13 +9,11 @@ import { Header } from "../../components/Header";
 import { InputPassword } from "../../components/InputPassword";
 import { useContext } from "react";
 import { UserContext } from "../../providers/userContext";
-import { useState } from "react";
-import { TechContext } from "../../providers/techContext";
+
 
 export const LoginPage = () => {
-  const { loginUser, user } = useContext(UserContext);
-  const { loadTechs } = useContext(TechContext);
-  const [token, setToken] = useState(localStorage.getItem("@TOKEN") || "");
+  const { loginUser } = useContext(UserContext);
+
   const {
     register,
     handleSubmit,

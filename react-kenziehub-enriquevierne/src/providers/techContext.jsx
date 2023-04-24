@@ -36,7 +36,7 @@ export const TechProvider = ({ children }) => {
         currentTech.id === id ? { ...currentTech, ...status } : currentTech
       );
       setListTech(newListTech);
-      toast.success("Tecnologia atualizada");
+      toast.info("Tecnologia atualizada");
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -55,7 +55,7 @@ export const TechProvider = ({ children }) => {
         (currentTech) => currentTech.id !== techId
       );
       setListTech(newListTech);
-      toast.success("Tecnologia removida");
+      toast.warning("Tecnologia removida");
     } catch (error) {
       toast.error(error.message);
     }

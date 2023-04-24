@@ -24,7 +24,6 @@ export const UserProvider = ({ children }) => {
         setUser(data);
         navigate("/dashboard");
       } catch (error) {
-        toast.error(error.message);
         localStorage.removeItem("@TOKEN");
         localStorage.removeItem("@USERID");
       }
