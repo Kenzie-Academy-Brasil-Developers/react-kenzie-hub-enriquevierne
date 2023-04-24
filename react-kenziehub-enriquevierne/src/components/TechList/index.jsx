@@ -20,7 +20,6 @@ export const TechList = ({ setIsOpenCreate }) => {
     loadTechs();
   }, []);
 
-  console.log(listTech.length)
   return (
     <div>
       <StyledTitleTechList>

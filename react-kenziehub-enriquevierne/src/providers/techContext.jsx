@@ -32,11 +32,10 @@ export const TechProvider = ({ children }) => {
         },
       });
 
-      const newListTech = listTech.filter((currentTech) =>
-      currentTech.status !== status
-      ? setListTech([...listTech, data])
-      : null
+      const newListTech = listTech.map((currentTech) =>
+        currentTech.id === id ? { ...currentTech, ...status } : currentTech
       );
+      setListTech(newListTech);
       toast.success("Tecnologia atualizada");
     } catch (error) {
       toast.error(error.response.data.message);
@@ -56,7 +55,7 @@ export const TechProvider = ({ children }) => {
         (currentTech) => currentTech.id !== techId
       );
       setListTech(newListTech);
-      toast.success("Tecnologia removida")
+      toast.success("Tecnologia removida");
     } catch (error) {
       toast.error(error.message);
     }
