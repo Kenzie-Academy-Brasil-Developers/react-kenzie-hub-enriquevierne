@@ -11,14 +11,14 @@ export const DashboardPage = () => {
   const [isOpenCreate, setIsOpenCreate] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("@USER"));
-  const navigate = useNavigate();
+  
   
   return (
     <>
       <Header/>
       <StyledDivDashboard>
-        <h2>Olá, {user.name}</h2>
-        <p>{user.course_module}</p>
+        <h2>Olá, {user?.name}</h2>
+        <p>{user?.course_module}</p>
       </StyledDivDashboard>
       <TechList setIsOpenCreate={setIsOpenCreate} />
       {isOpenCreate ? <CreateModal setIsOpenCreate={setIsOpenCreate} /> : null}

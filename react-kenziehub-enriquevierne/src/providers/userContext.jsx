@@ -9,10 +9,11 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    //Ter uma rota de api adequada para isso!
     const token = localStorage.getItem("@TOKEN");
-    const userId = localStorage.getItem("@USERID");
 
+    if (!token) {
+      navigate("/");
+    }
     const userAutoLogin = async () => {
       try {
         const { data } = await api.get(`/profile/`, {
@@ -21,7 +22,7 @@ export const UserProvider = ({ children }) => {
           },
         });
         setUser(data);
-        navigate("dashboard");
+        navigate("/dashboard");
       } catch (error) {
         toast.error(error.message);
         localStorage.removeItem("@TOKEN");
@@ -29,9 +30,7 @@ export const UserProvider = ({ children }) => {
       }
     };
 
-    if (token && userId) {
-      userAutoLogin();
-    }
+    userAutoLogin();
   }, []);
   const loginUser = async (data) => {
     try {
